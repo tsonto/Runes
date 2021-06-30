@@ -1,0 +1,31 @@
+name: On pull request
+
+on: pull_request
+
+jobs:
+  
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_BUILDKIT: 1
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      DOTNET_NOLOGO: true
+    steps:
+    
+      # Set up the environment
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    
+      # Build
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore /warnaserror
+
+      # Test
+    - name: Run the tests
+      run: dotnet test --configuration Release --no-build --verbosity normal
