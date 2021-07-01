@@ -6,6 +6,10 @@
         <IsPackable>false</IsPackable>
 
         <Nullable>enable</Nullable>
+
+        <AssemblyName>Runes.Test</AssemblyName>
+
+        <RootNamespace>Runes.Test</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

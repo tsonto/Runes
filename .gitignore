@@ -123,5 +123,5 @@ ServiceFabricBackup/
 # Local History for Visual Studio
 .localhistory/
 
-# Specific to Utf32Net
+# Specific to Runes
 *.diagsession

@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace Utf32Net.Test
+namespace Runes.Test
 {
 	public class RuneStoneTests
 	{

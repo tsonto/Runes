@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 
-namespace Utf32Net
+namespace Runes
 {
 	public sealed class RuneString : IEnumerable<Rune>, IEquatable<RuneString>, IComparable<RuneString>
 	{

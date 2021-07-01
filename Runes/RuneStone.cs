@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace Utf32Net
+namespace Runes
 {
 	public static class RuneStone
 	{
