@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
@@ -45,5 +46,10 @@ namespace Utf32Net
 				_ => true
 			};
 
-	}
+        public static Rune ZeroWidthNonJoiner { get; } = new( 0x200C);
+        public static Rune ZeroWidthJoiner { get; }=new( 0x200D);
+        public static Rune CombiningGraphemeJoiner { get; } = new(0x034F);
+
+        internal static SortedSet<Rune> Joiners = new(new[] { ZeroWidthNonJoiner, ZeroWidthJoiner, CombiningGraphemeJoiner });
+    }
 }
