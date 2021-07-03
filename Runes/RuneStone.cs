@@ -1,55 +1,70 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace Runes
+namespace Tsonto.System.Text
 {
-	public static class RuneStone
-	{
-		public static bool TryRead(string s, ref int position, out Rune r)
-		{
-			if (position < 0 || position > s.Length)
-				throw new ArgumentOutOfRangeException(nameof(position));
+    public static class RuneStone
+    {
+        public static bool IsModifer(char c)
+            => IsModifer(char.GetUnicodeCategory(c));
 
-			if (position == s.Length)
-			{
-				r = default;
-				return false;
-			}
+        public static bool IsModifer(Rune rune)
+            => IsModifer(Rune.GetUnicodeCategory(rune));
 
-			if (Rune.TryGetRuneAt(s, position, out r))
-			{
-				position += r.Utf16SequenceLength;
-				return true;
-			}
+        public static bool IsModifer(this UnicodeCategory category)
+            => category switch
+            {
+                UnicodeCategory.ModifierLetter => false,
+                UnicodeCategory.ModifierSymbol => false,
+                UnicodeCategory.NonSpacingMark => false,
+                UnicodeCategory.EnclosingMark => false,
+                UnicodeCategory.SpacingCombiningMark => false,
+                _ => true
+            };
 
-			position = s.Length;
-			r = default;
-			return false;
-		}
+        public static bool TryRead(string s, ref int position, out Rune r)
+            => TryRead(s, ref position, out r, RuneParseErrorHandling.UseReplacementCharacter);
 
-		public static bool IsModifer(char c)
-			=> IsModifer(char.GetUnicodeCategory(c));
+        public static bool TryRead(string s, ref int position, out Rune r, RuneParseErrorHandling errorHandling)
+        {
+            if (position < 0 || position > s.Length)
+                throw new ArgumentOutOfRangeException(nameof(position));
 
-		public static bool IsModifer(Rune rune)
-			=> IsModifer(Rune.GetUnicodeCategory(rune));
+            if (position == s.Length)
+            {
+                r = default;
+                return false;
+            }
 
-		public static bool IsModifer(this UnicodeCategory category)
-			=> category switch
-			{
-				UnicodeCategory.ModifierLetter => false,
-				UnicodeCategory.ModifierSymbol => false,
-				UnicodeCategory.NonSpacingMark => false,
-				UnicodeCategory.EnclosingMark => false,
-				UnicodeCategory.SpacingCombiningMark => false,
-				_ => true
-			};
+            if (Rune.TryGetRuneAt(s, position, out r))
+            {
+                position += r.Utf16SequenceLength;
+                return true;
+            }
 
-        public static Rune ZeroWidthNonJoiner { get; } = new( 0x200C);
-        public static Rune ZeroWidthJoiner { get; }=new( 0x200D);
-        public static Rune CombiningGraphemeJoiner { get; } = new(0x034F);
+            if (errorHandling == RuneParseErrorHandling.UseReplacementCharacter)
+            {
+                ++position;
+                r = new(0xFFFD);
+                return true;
+            }
+            else if (errorHandling == RuneParseErrorHandling.OmitCharacter)
+            {
+                ++position;
+                return TryRead(s, ref position, out r, errorHandling);
+            }
+            else
+            {
+                throw new ArgumentException("The given position does not represent the start of a valid Unicode codepoint.");
+            }
+        }
+    }
 
-        internal static SortedSet<Rune> Joiners = new(new[] { ZeroWidthNonJoiner, ZeroWidthJoiner, CombiningGraphemeJoiner });
+    public enum RuneParseErrorHandling
+    {
+        UseReplacementCharacter,
+        ThrowException,
+        OmitCharacter,
     }
 }

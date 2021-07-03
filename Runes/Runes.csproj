@@ -1,9 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
 		<Nullable>enable</Nullable>
-		<RootNamespace>Runes</RootNamespace>
+		<RootNamespace>Tsonto.System.Text</RootNamespace>
 		<AssemblyName>Runes</AssemblyName>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="ImmutableArraySegment" Version="0.4.0" />
+	</ItemGroup>
 </Project>
