@@ -1,0 +1,493 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Runes</name>
+    </assembly>
+    <members>
+        <member name="T:Tsonto.System.Text.RuneParseErrorHandling">
+            <summary>
+            Specifies how to handle invalid Unicode characters/sequences.
+            </summary>
+        </member>
+        <member name="F:Tsonto.System.Text.RuneParseErrorHandling.UseReplacementCharacter">
+            <summary>
+            Emit the Unicode replacement character (U+FFFD).
+            </summary>
+        </member>
+        <member name="F:Tsonto.System.Text.RuneParseErrorHandling.ThrowException">
+            <summary>
+            Throw an <see cref="T:System.ArgumentException"/>.
+            </summary>
+        </member>
+        <member name="F:Tsonto.System.Text.RuneParseErrorHandling.OmitCharacter">
+            <summary>
+            Advance to the next position and retry.
+            </summary>
+        </member>
+        <member name="T:Tsonto.System.Text.RuneStone">
+            <summary>
+            Provides static methods for working with <see cref="T:System.Text.Rune"/> s and <see cref="T:Tsonto.System.Text.RuneString"/> s.
+            </summary>
+        </member>
+        <member name="F:Tsonto.System.Text.RuneStone.ReplacementCharacter">
+            <summary>
+            Gets a <see cref="T:System.Text.Rune"/> that represents the Unicode replacement character (U+FFFD).
+            </summary>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneStone.IsModifer(System.Char)">
+            <summary>
+            Checks whether the given character is a modifier character, per Unicode category M.
+            </summary>
+            <param name="c">The character to check.</param>
+            <returns>True if the character is a modifier character; false otherwise.</returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneStone.IsModifer(System.Text.Rune)">
+            <summary>
+            Checks whether the given <see cref="T:System.Text.Rune"/> is a modifier character, per Unicode category M.
+            </summary>
+            <param name="rune">The rune to check.</param>
+            <returns>True if the rune is a modifier character; false otherwise.</returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneStone.IsModifer(System.Globalization.UnicodeCategory)">
+            <summary>
+            Checks whether the given Unicode category is a Modifier category (a subtype of category M).
+            </summary>
+            <param name="category">The category to check.</param>
+            <returns>True if the category is a modifier category; false otherwise.</returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneStone.TryRead(System.String,System.Int32@,System.Text.Rune@)">
+            <summary>
+            Attempts to read a rune at the given position in a string, and advances the <paramref name="position"/>
+            argument to just after that rune.
+            </summary>
+            <param name="s">The string to read from.</param>
+            <param name="position">
+            The position in the string to read from. 0 means to read from the beginning. This argument will
+            automatically be advanced to the start of the next rune, or to just past the end of the string if there are
+            no more runes.
+            </param>
+            <param name="r">
+            If the call returns true, this is the rune read from the string; otherwise the value is character 0. If the
+            rune at the specified location is invalid, the output is U+FFFD, the Unicode replacement character.
+            </param>
+            <returns>
+            True if the method found a rune. This includes invalid input that returns the replacement character. False
+            if <paramref name="position"/> is already at the end of the string.
+            </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            <paramref name="position"/> is less than zero or greater that the string's length.
+            </exception>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneStone.TryRead(System.String,System.Int32@,System.Text.Rune@,Tsonto.System.Text.RuneParseErrorHandling)">
+            <summary>
+            Attempts to read a rune at the given position in a string, and advances the <paramref name="position"/>
+            argument to just after that rune.
+            </summary>
+            <param name="s">The string to read from.</param>
+            <param name="position">
+            The position in the string to read from. 0 means to read from the beginning. This argument will
+            automatically be advanced to the start of the next rune, or to just past the end of the string if there are
+            no more runes.
+            </param>
+            <param name="r">
+            If the call returns true, this is the rune read from the string; otherwise the value is character 0. If the
+            rune at the specified location is invalid and <paramref name="errorHandling"/> is <see
+            cref="F:Tsonto.System.Text.RuneParseErrorHandling.UseReplacementCharacter"/>, the output is U+FFFD, the Unicode replacement
+            character. If the rune at the specified location is invalid and <paramref name="errorHandling"/> is <see
+            cref="F:Tsonto.System.Text.RuneParseErrorHandling.OmitCharacter"/>, the output is the next valid rune found.
+            </param>
+            <param name="errorHandling">
+            Specifies what action the method should take if it encounters an invalid Unicode sequence.
+            </param>
+            <returns>
+            True if the method found a rune. This includes invalid input that returns the replacement character or that
+            skips to the next valid rune. False if <paramref name="position"/> is already at the end of the string.
+            </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            <paramref name="position"/> is less than zero or greater that the string's length.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            The Unicode character or sequence at the given position is invalid, and <paramref name="errorHandling"/> is
+            set to <see cref="F:Tsonto.System.Text.RuneParseErrorHandling.ThrowException"/>.
+            </exception>
+        </member>
+        <member name="T:Tsonto.System.Text.RuneString">
+            <summary>
+            An immutable sequence of <see cref="T:System.Text.Rune"/> s.
+            </summary>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.#ctor(System.Collections.Generic.IEnumerable{System.Text.Rune})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tsonto.System.Text.RuneString"/> class.
+            </summary>
+            <param name="runes">The runes that will make up the string.</param>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.#ctor(System.ReadOnlySpan{System.Text.Rune}@)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tsonto.System.Text.RuneString"/> class.
+            </summary>
+            <param name="runes">The runes that will make up the string.</param>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tsonto.System.Text.RuneString"/> class.
+            </summary>
+            <param name="s">A string to parse for runes.</param>
+            <remarks>
+            If the string contains invalid Unicode characters/sequences, they will be replaced by the Unicode
+            replacement character (U+FFFD).
+            </remarks>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.#ctor(System.String,Tsonto.System.Text.RuneParseErrorHandling)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tsonto.System.Text.RuneString"/> class.
+            </summary>
+            <param name="s">A string to parse for runes.</param>
+            <param name="errorHandling">How to handle invalid Unicode characters/sequences.</param>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.#ctor(Tsonto.Collections.Generic.ImmutableArraySegment{System.Text.Rune}@)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tsonto.System.Text.RuneString"/> class.
+            </summary>
+            <param name="runes">The runes that will make up the string.</param>
+        </member>
+        <member name="P:Tsonto.System.Text.RuneString.System#Collections#Generic#IReadOnlyCollection{System#Text#Rune}#Count">
+            <summary>
+            Gets the number of runes in the string.
+            </summary>
+        </member>
+        <member name="P:Tsonto.System.Text.RuneString.Length">
+            <summary>
+            Gets the number of runes in the string.
+            </summary>
+        </member>
+        <member name="P:Tsonto.System.Text.RuneString.Item(System.Index)">
+            <summary>
+            Gets the rune at the given position in the rune string.
+            </summary>
+            <param name="index">The offset, in number of runes.</param>
+            <returns>The rune at the given position.</returns>
+            <exception cref="T:System.IndexOutOfRangeException">
+            The indicated position is outside the bounds of the string.
+            </exception>
+        </member>
+        <member name="P:Tsonto.System.Text.RuneString.Item(System.Int32)">
+            <summary>
+            Gets the rune at the given position in the rune string.
+            </summary>
+            <param name="index">The offset, in number of runes.</param>
+            <returns>The rune at the given position.</returns>
+            <exception cref="T:System.IndexOutOfRangeException">
+            The indicated position is outside the bounds of the string.
+            </exception>
+        </member>
+        <member name="P:Tsonto.System.Text.RuneString.Item(System.Range)">
+            <summary>
+            Gets a portion of the rune string.
+            </summary>
+            <param name="range">The portion of the string to retrieve.</param>
+            <returns>A new <see cref="T:Tsonto.System.Text.RuneString"/> representing the indicated portion of the original.</returns>
+            <remarks>This operation does not perform a copy—it is an O(1) operation.</remarks>
+            <exception cref="T:System.IndexOutOfRangeException">
+            The start or end position is outside the bounds of the string.
+            </exception>
+        </member>
+        <member name="P:Tsonto.System.Text.RuneString.Utf16UnitLength">
+            <summary>
+            Gets the length, in 16-bit units, of the string if it were converted to UTF-16 format.
+            </summary>
+        </member>
+        <member name="P:Tsonto.System.Text.RuneString.Utf32UnitLength">
+            <summary>
+            Gets the length, in 32-bit units, of the string if it were converted to UTF-32 format.
+            </summary>
+        </member>
+        <member name="P:Tsonto.System.Text.RuneString.Utf8UnitLength">
+            <summary>
+            Gets the length, in 8-bit units, of the string if it were converted to UTF-8 format.
+            </summary>
+        </member>
+        <member name="F:Tsonto.System.Text.RuneString.Empty">
+            <summary>
+            Gets a <see cref="T:Tsonto.System.Text.RuneString"/> of length 0.
+            </summary>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.Concat(Tsonto.System.Text.RuneString[])">
+            <summary>
+            Creates a new <see cref="T:Tsonto.System.Text.RuneString"/> from the concatenation of multiple source strings.
+            </summary>
+            <param name="strings">The source strings.</param>
+            <returns>A new <see cref="T:Tsonto.System.Text.RuneString"/> of the runes from the source strings.</returns>
+            <remarks>
+            This operation has O(n) memory usage and O(s+n) time complexity, where n is the total length of all inputs
+            and s is the number of inputs. Some special cases are O(1).
+            </remarks>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.Join(System.Text.Rune,Tsonto.System.Text.RuneString[])">
+            <summary>
+            Combine the input strings sequentially, with a given delimiter between each source's content.
+            </summary>
+            <param name="delimiter">A <see cref="T:System.Text.Rune"/> to place between each source.</param>
+            <param name="strings">The sources to combine.</param>
+            <returns>A new <see cref="T:Tsonto.System.Text.RuneString"/> of the runes from the source strings.</returns>
+            <remarks>
+            This operation has O(n) memory usage and O(s+n) time complexity, where n is the total length of all inputs
+            and s is the number of inputs. Some special cases are O(1).
+            </remarks>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.Join(Tsonto.System.Text.RuneString,Tsonto.System.Text.RuneString[])">
+            <summary>
+            Combine the input strings sequentially, with a given delimiter between each source's content.
+            </summary>
+            <param name="delimiter">A <see cref="T:Tsonto.System.Text.RuneString"/> to place between each source.</param>
+            <param name="strings">The sources to combine.</param>
+            <returns>A new <see cref="T:Tsonto.System.Text.RuneString"/> of the runes from the source strings.</returns>
+            <remarks>
+            This operation has O(n + s*d) time and memory complexity, where n is the total length of all source inputs,
+            s is the number of source inputs, and d is the length of the delimiter. Some special cases are O(1).
+            </remarks>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.op_Inequality(Tsonto.System.Text.RuneString,Tsonto.System.Text.RuneString)">
+            <summary>
+            Determines whether two <see cref="T:Tsonto.System.Text.RuneString"/> s are inequal. This method is not locale-aware.
+            </summary>
+            <param name="left">One of the strings.</param>
+            <param name="right">The other string.</param>
+            <returns>True if the inputs are inequal; false otherwise.</returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.op_Addition(Tsonto.System.Text.RuneString,Tsonto.System.Text.RuneString)">
+            <summary>
+            Concatenates two <see cref="T:Tsonto.System.Text.RuneString"/> s.
+            </summary>
+            <param name="a">The first input.</param>
+            <param name="b">The second input.</param>
+            <returns>A new <see cref="T:Tsonto.System.Text.RuneString"/> made of the concatenated inputs.</returns>
+            <remarks>Null inputs are treated as empty strings.</remarks>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.op_LessThan(Tsonto.System.Text.RuneString,Tsonto.System.Text.RuneString)">
+            <summary>
+            Determines whether the first <see cref="T:Tsonto.System.Text.RuneString"/> sorts before the second. This method is not
+            locale-aware.
+            </summary>
+            <param name="left">One of the strings.</param>
+            <param name="right">The other string.</param>
+            <returns>True if the first string sorts before the second; false otherwise.</returns>
+            <remarks>Null sorts before non-null.</remarks>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.op_LessThanOrEqual(Tsonto.System.Text.RuneString,Tsonto.System.Text.RuneString)">
+            <summary>
+            Determines whether the first <see cref="T:Tsonto.System.Text.RuneString"/> sorts at or before the second. This method is not
+            locale-aware.
+            </summary>
+            <param name="left">One of the strings.</param>
+            <param name="right">The other string.</param>
+            <returns>True if the first string sorts at or before the second; false otherwise.</returns>
+            <remarks>Null sorts before non-null.</remarks>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.op_Equality(Tsonto.System.Text.RuneString,Tsonto.System.Text.RuneString)">
+            <summary>
+            Determines whether two <see cref="T:Tsonto.System.Text.RuneString"/> s are equal (have the same runes in the same sequence). This
+            method is not locale-aware.
+            </summary>
+            <param name="left">One of the strings.</param>
+            <param name="right">The other string.</param>
+            <returns>True if the inputs are equal; false otherwise.</returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.op_GreaterThan(Tsonto.System.Text.RuneString,Tsonto.System.Text.RuneString)">
+            <summary>
+            Determines whether the first <see cref="T:Tsonto.System.Text.RuneString"/> sorts after the second. This method is not
+            locale-aware.
+            </summary>
+            <param name="left">One of the strings.</param>
+            <param name="right">The other string.</param>
+            <returns>True if the first string sorts after the second; false otherwise.</returns>
+            <remarks>Null sorts before non-null.</remarks>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.op_GreaterThanOrEqual(Tsonto.System.Text.RuneString,Tsonto.System.Text.RuneString)">
+            <summary>
+            Determines whether the first <see cref="T:Tsonto.System.Text.RuneString"/> sorts at or after the second. This method is not
+            locale-aware.
+            </summary>
+            <param name="left">One of the strings.</param>
+            <param name="right">The other string.</param>
+            <returns>True if the first string sorts at or after the second; false otherwise.</returns>
+            <remarks>Null sorts before non-null.</remarks>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.CompareTo(Tsonto.System.Text.RuneString)">
+            <summary>
+            Calculates whether the given <see cref="T:Tsonto.System.Text.RuneString"/> sorts before, after, or at the same place as this one.
+            This method is not locale-aware.
+            </summary>
+            <param name="other">The string to compare against the current one.</param>
+            <returns>
+            0 if the strings are equal; a negative value if the current string sorts before the given string; or a
+            positive value if the current string sorts after the given string.
+            </returns>
+            <remarks>Null always sorts before non-null.</remarks>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.Contains(System.Text.Rune@)">
+            <summary>
+            Checks whether the given rune is present in the string.
+            </summary>
+            <param name="rune">The rune to look for.</param>
+            <returns>True if the rune is present in the string; false otherwise.</returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.Equals(Tsonto.System.Text.RuneString)">
+            <summary>
+            Checks whether the given string is equal to the current string. This method is not locale-aware.
+            </summary>
+            <param name="other">The string to check against this one.</param>
+            <returns>True if the strings are equal.</returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.Equals(System.Object)">
+            <summary>
+            Checks whether the given object is a <see cref="T:Tsonto.System.Text.RuneString"/> and equal to the current string. This method
+            is not locale-aware.
+            </summary>
+            <param name="obj">The string to check against this one.</param>
+            <returns>True if the strings are equal.</returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.IndexOf(System.Text.Rune@)">
+            <summary>
+            Finds the position of the first instance of the given rune in the string, or -1 if it is not present.
+            </summary>
+            <param name="rune">The rune to search for.</param>
+            <returns>
+            The position of the rune, as a number of runes from the beginning, or -1 to indicate that the rune is not
+            present.
+            </returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.IndexOf(System.Text.Rune@,System.Int32)">
+            <summary>
+            Finds the position of the first instance of the given rune in the string, or -1 if it is not present.
+            </summary>
+            <param name="rune">The rune to search for.</param>
+            <param name="start">The position to start searching from, inclusive. 0 to search from the beginning.</param>
+            <returns>
+            The position of the rune, as a number of runes from the beginning of the string, or -1 to indicate that the
+            rune is not present in the range.
+            </returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.IndexOf(System.Text.Rune@,System.Int32,System.Int32)">
+            <summary>
+            Finds the position of the first instance of the given rune in the string, or -1 if it is not present.
+            </summary>
+            <param name="rune">The rune to search for.</param>
+            <param name="start">The position to start searching from, inclusive. 0 to search from the beginning.</param>
+            <param name="length">The number of runes to search from the start position.</param>
+            <returns>
+            The position of the rune, as a number of runes from the beginning of the string, or -1 to indicate that the
+            rune is not present in the range.
+            </returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.Split(System.Text.Rune@)">
+            <summary>
+            Returns a <see cref="T:Tsonto.System.Text.RuneString"/> array that contains the substrings in this instance that are delimited by
+            a specified <see cref="T:System.Text.Rune"/>.
+            </summary>
+            <param name="delimiter">The <see cref="T:System.Text.Rune"/> to split on.</param>
+            <returns>An array of substrings.</returns>
+            <remarks>The output will always have at least one element, which may be empty.</remarks>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.Substring(System.Int32)">
+            <summary>
+            Gets a portion of the rune string starting from a specified position and going to the end.
+            </summary>
+            <param name="start">The offset from the front to start at.</param>
+            <returns>A new <see cref="T:Tsonto.System.Text.RuneString"/> representing the indicated portion of the original.</returns>
+            <remarks>This operation does not perform a copy—it is an O(1) operation.</remarks>
+            <exception cref="T:System.IndexOutOfRangeException">
+            The start position is outside the bounds of the string.
+            </exception>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.Substring(System.Int32,System.Int32)">
+            <summary>
+            Gets a portion of the rune string starting from a specified position and of the specified length.
+            </summary>
+            <param name="start">The offset from the front to start at.</param>
+            <param name="length">How many runes to retrieve.</param>
+            <returns>A new <see cref="T:Tsonto.System.Text.RuneString"/> representing the indicated portion of the original.</returns>
+            <remarks>This operation does not perform a copy—it is an O(1) operation.</remarks>
+            <exception cref="T:System.IndexOutOfRangeException">
+            The start or end position is outside the bounds of the string.
+            </exception>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.ToChars">
+            <summary>
+            Converts the runes to an array of characters.
+            </summary>
+            <returns>The character array.</returns>
+            <remarks>
+            Because some runes convert to two characters, the length of the output may exceed the string's length. Also,
+            this ouput may not match the original <see cref="T:System.String"/> if it had any invalid Unicode
+            characters/sequences.
+            </remarks>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.ToString">
+            <summary>
+            Converts the runes to a <see cref="T:System.String"/>.
+            </summary>
+            <returns>The equivalent <see cref="T:System.String"/>.</returns>
+            <remarks>
+            Because some runes convert to two characters, the length of the output may exceed the string's length. Also,
+            this ouput may not match the original <see cref="T:System.String"/> if it had any invalid Unicode
+            characters/sequences.
+            </remarks>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.ToUtf16BEBytes">
+            <summary>
+            Encodes the rune string in big-endian UTF-16 format.
+            </summary>
+            <returns>An array of bytes.</returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.ToUtf16LEBytes">
+            <summary>
+            Encodes the rune string in little-endian UTF-16 format.
+            </summary>
+            <returns>An array of bytes.</returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.ToUtf16Units">
+            <summary>
+            Encodes the rune string as a sequence of UTF-16 units.
+            </summary>
+            <returns>An array of 16-bit units.</returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.ToUtf32BEBytes">
+            <summary>
+            Encodes the rune string in big-endian UTF-32 format.
+            </summary>
+            <returns>An array of bytes.</returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.ToUtf32LEBytes">
+            <summary>
+            Encodes the rune string in little-endian UTF-32 format.
+            </summary>
+            <returns>An array of bytes.</returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.ToUtf32Units">
+            <summary>
+            Encodes the rune string as a sequence of UTF-32 units.
+            </summary>
+            <returns>An array of 32-bit units.</returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.ToUtf8">
+            <summary>
+            Encodes the rune string in UTF-8 format.
+            </summary>
+            <returns>An array of bytes.</returns>
+            <remarks>
+            The output can be considered either a sequence of encoded bytes or as a sequence of 8-bit units--the
+            concepts are identical for UTF-8. UTF-8 does not little-endian and big-endian varieties.
+            </remarks>
+        </member>
+    </members>
+</doc>
