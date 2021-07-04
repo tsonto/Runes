@@ -125,3 +125,4 @@ ServiceFabricBackup/
 
 # Specific to Runes
 *.diagsession
+Runes.xml

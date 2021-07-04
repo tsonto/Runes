@@ -181,7 +181,17 @@
             The indicated position is outside the bounds of the string.
             </exception>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Tsonto.System.Text.RuneString.Item(System.Range)" -->
+        <member name="P:Tsonto.System.Text.RuneString.Item(System.Range)">
+            <summary>
+            Gets a portion of the rune string.
+            </summary>
+            <param name="range">The portion of the string to retrieve.</param>
+            <returns>A new <see cref="T:Tsonto.System.Text.RuneString"/> representing the indicated portion of the original.</returns>
+            <remarks>This operation does not perform a copy—it is an O(1) operation.</remarks>
+            <exception cref="T:System.IndexOutOfRangeException">
+            The start or end position is outside the bounds of the string.
+            </exception>
+        </member>
         <member name="P:Tsonto.System.Text.RuneString.Utf16UnitLength">
             <summary>
             Gets the length, in 16-bit units, of the string if it were converted to UTF-16 format.
@@ -237,6 +247,14 @@
             s is the number of source inputs, and d is the length of the delimiter. Some special cases are O(1).
             </remarks>
         </member>
+        <member name="M:Tsonto.System.Text.RuneString.op_Inequality(Tsonto.System.Text.RuneString,Tsonto.System.Text.RuneString)">
+            <summary>
+            Determines whether two <see cref="T:Tsonto.System.Text.RuneString"/> s are inequal. This method is not locale-aware.
+            </summary>
+            <param name="left">One of the strings.</param>
+            <param name="right">The other string.</param>
+            <returns>True if the inputs are inequal; false otherwise.</returns>
+        </member>
         <member name="M:Tsonto.System.Text.RuneString.op_Addition(Tsonto.System.Text.RuneString,Tsonto.System.Text.RuneString)">
             <summary>
             Concatenates two <see cref="T:Tsonto.System.Text.RuneString"/> s.
@@ -245,6 +263,55 @@
             <param name="b">The second input.</param>
             <returns>A new <see cref="T:Tsonto.System.Text.RuneString"/> made of the concatenated inputs.</returns>
             <remarks>Null inputs are treated as empty strings.</remarks>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.op_LessThan(Tsonto.System.Text.RuneString,Tsonto.System.Text.RuneString)">
+            <summary>
+            Determines whether the first <see cref="T:Tsonto.System.Text.RuneString"/> sorts before the second. This method is not
+            locale-aware.
+            </summary>
+            <param name="left">One of the strings.</param>
+            <param name="right">The other string.</param>
+            <returns>True if the first string sorts before the second; false otherwise.</returns>
+            <remarks>Null sorts before non-null.</remarks>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.op_LessThanOrEqual(Tsonto.System.Text.RuneString,Tsonto.System.Text.RuneString)">
+            <summary>
+            Determines whether the first <see cref="T:Tsonto.System.Text.RuneString"/> sorts at or before the second. This method is not
+            locale-aware.
+            </summary>
+            <param name="left">One of the strings.</param>
+            <param name="right">The other string.</param>
+            <returns>True if the first string sorts at or before the second; false otherwise.</returns>
+            <remarks>Null sorts before non-null.</remarks>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.op_Equality(Tsonto.System.Text.RuneString,Tsonto.System.Text.RuneString)">
+            <summary>
+            Determines whether two <see cref="T:Tsonto.System.Text.RuneString"/> s are equal (have the same runes in the same sequence). This
+            method is not locale-aware.
+            </summary>
+            <param name="left">One of the strings.</param>
+            <param name="right">The other string.</param>
+            <returns>True if the inputs are equal; false otherwise.</returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.op_GreaterThan(Tsonto.System.Text.RuneString,Tsonto.System.Text.RuneString)">
+            <summary>
+            Determines whether the first <see cref="T:Tsonto.System.Text.RuneString"/> sorts after the second. This method is not
+            locale-aware.
+            </summary>
+            <param name="left">One of the strings.</param>
+            <param name="right">The other string.</param>
+            <returns>True if the first string sorts after the second; false otherwise.</returns>
+            <remarks>Null sorts before non-null.</remarks>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.op_GreaterThanOrEqual(Tsonto.System.Text.RuneString,Tsonto.System.Text.RuneString)">
+            <summary>
+            Determines whether the first <see cref="T:Tsonto.System.Text.RuneString"/> sorts at or after the second. This method is not
+            locale-aware.
+            </summary>
+            <param name="left">One of the strings.</param>
+            <param name="right">The other string.</param>
+            <returns>True if the first string sorts at or after the second; false otherwise.</returns>
+            <remarks>Null sorts before non-null.</remarks>
         </member>
         <member name="M:Tsonto.System.Text.RuneString.CompareTo(Tsonto.System.Text.RuneString)">
             <summary>
@@ -277,7 +344,7 @@
             Checks whether the given object is a <see cref="T:Tsonto.System.Text.RuneString"/> and equal to the current string. This method
             is not locale-aware.
             </summary>
-            <param name="other">The string to check against this one.</param>
+            <param name="obj">The string to check against this one.</param>
             <returns>True if the strings are equal.</returns>
         </member>
         <member name="M:Tsonto.System.Text.RuneString.GetEnumerator">
@@ -331,8 +398,29 @@
             <returns>An array of substrings.</returns>
             <remarks>The output will always have at least one element, which may be empty.</remarks>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Tsonto.System.Text.RuneString.Substring(System.Int32)" -->
-        <!-- Badly formed XML comment ignored for member "M:Tsonto.System.Text.RuneString.Substring(System.Int32,System.Int32)" -->
+        <member name="M:Tsonto.System.Text.RuneString.Substring(System.Int32)">
+            <summary>
+            Gets a portion of the rune string starting from a specified position and going to the end.
+            </summary>
+            <param name="start">The offset from the front to start at.</param>
+            <returns>A new <see cref="T:Tsonto.System.Text.RuneString"/> representing the indicated portion of the original.</returns>
+            <remarks>This operation does not perform a copy—it is an O(1) operation.</remarks>
+            <exception cref="T:System.IndexOutOfRangeException">
+            The start position is outside the bounds of the string.
+            </exception>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.Substring(System.Int32,System.Int32)">
+            <summary>
+            Gets a portion of the rune string starting from a specified position and of the specified length.
+            </summary>
+            <param name="start">The offset from the front to start at.</param>
+            <param name="length">How many runes to retrieve.</param>
+            <returns>A new <see cref="T:Tsonto.System.Text.RuneString"/> representing the indicated portion of the original.</returns>
+            <remarks>This operation does not perform a copy—it is an O(1) operation.</remarks>
+            <exception cref="T:System.IndexOutOfRangeException">
+            The start or end position is outside the bounds of the string.
+            </exception>
+        </member>
         <member name="M:Tsonto.System.Text.RuneString.ToChars">
             <summary>
             Converts the runes to an array of characters.
