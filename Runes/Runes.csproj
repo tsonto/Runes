@@ -5,9 +5,32 @@
 		<Nullable>enable</Nullable>
 		<RootNamespace>Tsonto.System.Text</RootNamespace>
 		<AssemblyName>Runes</AssemblyName>
+        <Authors>Matt Tsōnto</Authors>
+        <Company>Tsōnto Enterprises</Company>
+        <Copyright>2021 Matt Tsōnto</Copyright>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/tsonto/Runes</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/tsonto/Runes</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <UseFullSemVerForNuGet>true</UseFullSemVerForNuGet>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DocumentationFile>Runes.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="ImmutableArraySegment" Version="0.4.0" />
 	</ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="GitVersion.MsBuild" Version="5.6.9" Condition=" '$(CI_IS_PUSH_TO_MAIN)' == 'true' AND '$(IS_ACT)' != '1' ">
+            <!-- Skip in act because it has a path-delimiter bug that makes it fail when running a Linux runner from Windows. -->
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
 </Project>

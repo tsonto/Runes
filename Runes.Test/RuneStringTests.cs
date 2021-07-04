@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Text;
+using FluentAssertions;
 using Xunit;
 
 namespace Tsonto.System.Text.Test
@@ -66,6 +67,28 @@ namespace Tsonto.System.Text.Test
             var c = new RuneString("de");
             var actual = RuneString.Concat(a, b, c);
             actual.ToString().Should().Be("abcde");
+        }
+
+        [Fact]
+        public void Join_Element()
+        {
+            var a = new RuneString("abc");
+            var b = new RuneString("");
+            var c = new RuneString("de");
+            var delimiter = new Rune('x');
+            var actual = RuneString.Join(delimiter, new[] { a, b, c });
+            actual.ToString().Should().Be("abcxxde");
+        }
+
+        [Fact]
+        public void Join_RuneString()
+        {
+            var a = new RuneString("abc");
+            var b = new RuneString("");
+            var c = new RuneString("de");
+            var delimiter = new RuneString("xy");
+            var actual = RuneString.Join(delimiter, new[] { a, b, c });
+            actual.ToString().Should().Be("abcxyxyde");
         }
     }
 }

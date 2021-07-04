@@ -2,13 +2,9 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-
         <IsPackable>false</IsPackable>
-
         <Nullable>enable</Nullable>
-
         <AssemblyName>Runes.Test</AssemblyName>
-
         <RootNamespace>Tsonto.System.Text.Test</RootNamespace>
     </PropertyGroup>
 
@@ -27,6 +23,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Runes\Runes.csproj" />
+        <ProjectReference Include="..\Runes\Runes.csproj" />
     </ItemGroup>
 </Project>
