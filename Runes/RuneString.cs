@@ -395,6 +395,114 @@ namespace Tsonto.System.Text
             => data.IndexOf(in rune, start, length, RuneEquals);
 
         /// <summary>
+        /// Finds the position of the first instance of the given substring in the string, or -1 if it is not present.
+        /// </summary>
+        /// <param name="substring">The substring to search for.</param>
+        /// <param name="start">The position to start searching from, inclusive. 0 to search from the beginning.</param>
+        /// <param name="length">The number of runes to search from the start position.</param>
+        /// <returns>
+        /// The start position of the substring, as a number of runes from the beginning of the string, or -1 to indicate that the
+        /// substring is not present in the range.
+        /// </returns>
+        public int IndexOf(in RuneString substring, int start, int length)
+            => data.IndexOf(substring.data, start, length, RuneEquals);
+
+        /// <summary>
+        /// Finds the position of the first instance of the given substring in the string, or -1 if it is not present.
+        /// </summary>
+        /// <param name="substring">The substring to search for.</param>
+        /// <param name="start">The position to start searching from, inclusive. 0 to search from the beginning.</param>
+        /// <returns>
+        /// The start position of the substring, as a number of runes from the beginning of the string, or -1 to indicate that the
+        /// substring is not present in the range.
+        /// </returns>
+        public int IndexOf(in RuneString substring, int start)
+            => data.IndexOf(substring.data, start, data.Length, RuneEquals);
+
+        /// <summary>
+        /// Finds the position of the first instance of the given substring in the string, or -1 if it is not present.
+        /// </summary>
+        /// <param name="substring">The substring to search for.</param>
+        /// <returns>
+        /// The start position of the substring, as a number of runes from the beginning of the string, or -1 to indicate that the
+        /// substring is not present in the range.
+        /// </returns>
+        public int IndexOf(in RuneString substring)
+            => data.IndexOf(substring.data, 0, data.Length, RuneEquals);
+
+        /// <summary>
+        /// Finds the position of the first instance of any of the given runes in the string, or -1 if none are present.
+        /// </summary>
+        /// <param name="runes">The runes to search for.</param>
+        /// <param name="start">The position to start searching from, inclusive. 0 to search from the beginning.</param>
+        /// <param name="length">The number of runes to search from the start position.</param>
+        /// <returns>
+        /// The position of the first match, as a number of runes from the beginning of the string, or -1 to indicate that none
+        /// of the runes are present in the range.
+        /// </returns>
+        public int IndexOfAny(Rune[] runes, int start, int length)
+            => data.IndexOfAny(runes, start, length, RuneEquals);
+
+        /// <summary>
+        /// Finds the position of the first instance of any of the given runes in the string, or -1 if none are present.
+        /// </summary>
+        /// <param name="runes">The runes to search for.</param>
+        /// <param name="start">The position to start searching from, inclusive. 0 to search from the beginning.</param>
+        /// <returns>
+        /// The position of the first match, as a number of runes from the beginning of the string, or -1 to indicate that none
+        /// of the runes are present in the range.
+        /// </returns>
+        public int IndexOfAny(Rune[] runes, int start)
+            => data.IndexOfAny(runes, start, data.Length, RuneEquals);
+
+        /// <summary>
+        /// Finds the position of the first instance of any of the given runes in the string, or -1 if none are present.
+        /// </summary>
+        /// <param name="runes">The runes to search for.</param>
+        /// <returns>
+        /// The position of the first match, as a number of runes from the beginning of the string, or -1 to indicate that none
+        /// of the runes are present in the range.
+        /// </returns>
+        public int IndexOfAny(Rune[] runes)
+            => data.IndexOfAny(runes, 0, data.Length, RuneEquals);
+
+        /// <summary>
+        /// Finds the position of the first instance of any of the given substrings in the string, or -1 if none are present.
+        /// </summary>
+        /// <param name="substrings">The substrings to search for.</param>
+        /// <param name="start">The position to start searching from, inclusive. 0 to search from the beginning.</param>
+        /// <param name="length">The number of runes to search from the start position.</param>
+        /// <returns>
+        /// The position of the start of the first match, as a number of runes from the beginning of the string, or -1 to indicate that none
+        /// of the substrings are present in the range.
+        /// </returns>
+        public int IndexOfAny(RuneString[] substrings, int start, int length)
+            => data.IndexOfAny(substrings.Select(s=>s.data).ToArray(), start, length, RuneEquals);
+
+        /// <summary>
+        /// Finds the position of the first instance of any of the given substrings in the string, or -1 if none are present.
+        /// </summary>
+        /// <param name="substrings">The substrings to search for.</param>
+        /// <param name="start">The position to start searching from, inclusive. 0 to search from the beginning.</param>
+        /// <returns>
+        /// The position of the start of the first match, as a number of runes from the beginning of the string, or -1 to indicate that none
+        /// of the substrings are present in the range.
+        /// </returns>
+        public int IndexOfAny(RuneString[] substrings, int start)
+            => data.IndexOfAny(substrings.Select(s => s.data).ToArray(), start, data.Length, RuneEquals);
+
+        /// <summary>
+        /// Finds the position of the first instance of any of the given substrings in the string, or -1 if none are present.
+        /// </summary>
+        /// <param name="substrings">The substrings to search for.</param>
+        /// <returns>
+        /// The position of the start of the first match, as a number of runes from the beginning of the string, or -1 to indicate that none
+        /// of the substrings are present in the range.
+        /// </returns>
+        public int IndexOfAny(RuneString[] substrings)
+            => data.IndexOfAny(substrings.Select(s => s.data).ToArray(), 0, data.Length, RuneEquals);
+
+        /// <summary>
         /// Returns a <see cref="RuneString"/> array that contains the substrings in this instance that are delimited by
         /// a specified <see cref="Rune"/>.
         /// </summary>
