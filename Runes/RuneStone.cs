@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
@@ -134,5 +135,29 @@ namespace Tsonto.System.Text
                 throw new ArgumentException("The given position does not represent the start of a valid Unicode codepoint.");
             }
         }
+
+        /// <summary>
+        /// Reads the runes from a given string. If the string contains invalid Unicode characters/sequences, they will be replaced by
+        /// the <see cref="ReplacementCharacter"/>.
+        /// </summary>
+        /// <param name="s">The string to parse.</param>
+        /// <returns>A sequence of <see cref="Rune"/>s.</returns>
+        public static IEnumerable<Rune> Read(string s)
+            => Read(s, default);
+
+        /// <summary>
+        /// Reads the runes from a given string.
+        /// the <see cref="ReplacementCharacter"/>.
+        /// </summary>
+        /// <param name="s">The string to parse.</param>
+        /// <param name="errorHandling">How to handle invalid Unicode characters/sequences in the string.</param>
+        /// <returns>A sequence of <see cref="Rune"/>s.</returns>
+        public static IEnumerable<Rune> Read(string s, RuneParseErrorHandling errorHandling)
+        {
+            int pos = 0;
+            while (TryRead(s, ref pos, out Rune r, errorHandling))
+                yield return r;
+        }
+
     }
 }

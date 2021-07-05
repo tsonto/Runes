@@ -389,6 +389,105 @@
             rune is not present in the range.
             </returns>
         </member>
+        <member name="M:Tsonto.System.Text.RuneString.IndexOf(Tsonto.System.Text.RuneString@,System.Int32,System.Int32)">
+            <summary>
+            Finds the position of the first instance of the given substring in the string, or -1 if it is not present.
+            </summary>
+            <param name="substring">The substring to search for.</param>
+            <param name="start">The position to start searching from, inclusive. 0 to search from the beginning.</param>
+            <param name="length">The number of runes to search from the start position.</param>
+            <returns>
+            The start position of the substring, as a number of runes from the beginning of the string, or -1 to indicate that the
+            substring is not present in the range.
+            </returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.IndexOf(Tsonto.System.Text.RuneString@,System.Int32)">
+            <summary>
+            Finds the position of the first instance of the given substring in the string, or -1 if it is not present.
+            </summary>
+            <param name="substring">The substring to search for.</param>
+            <param name="start">The position to start searching from, inclusive. 0 to search from the beginning.</param>
+            <returns>
+            The start position of the substring, as a number of runes from the beginning of the string, or -1 to indicate that the
+            substring is not present in the range.
+            </returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.IndexOf(Tsonto.System.Text.RuneString@)">
+            <summary>
+            Finds the position of the first instance of the given substring in the string, or -1 if it is not present.
+            </summary>
+            <param name="substring">The substring to search for.</param>
+            <returns>
+            The start position of the substring, as a number of runes from the beginning of the string, or -1 to indicate that the
+            substring is not present in the range.
+            </returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.IndexOfAny(System.Text.Rune[],System.Int32,System.Int32)">
+            <summary>
+            Finds the position of the first instance of any of the given runes in the string, or -1 if none are present.
+            </summary>
+            <param name="runes">The runes to search for.</param>
+            <param name="start">The position to start searching from, inclusive. 0 to search from the beginning.</param>
+            <param name="length">The number of runes to search from the start position.</param>
+            <returns>
+            The position of the first match, as a number of runes from the beginning of the string, or -1 to indicate that none
+            of the runes are present in the range.
+            </returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.IndexOfAny(System.Text.Rune[],System.Int32)">
+            <summary>
+            Finds the position of the first instance of any of the given runes in the string, or -1 if none are present.
+            </summary>
+            <param name="runes">The runes to search for.</param>
+            <param name="start">The position to start searching from, inclusive. 0 to search from the beginning.</param>
+            <returns>
+            The position of the first match, as a number of runes from the beginning of the string, or -1 to indicate that none
+            of the runes are present in the range.
+            </returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.IndexOfAny(System.Text.Rune[])">
+            <summary>
+            Finds the position of the first instance of any of the given runes in the string, or -1 if none are present.
+            </summary>
+            <param name="runes">The runes to search for.</param>
+            <returns>
+            The position of the first match, as a number of runes from the beginning of the string, or -1 to indicate that none
+            of the runes are present in the range.
+            </returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.IndexOfAny(Tsonto.System.Text.RuneString[],System.Int32,System.Int32)">
+            <summary>
+            Finds the position of the first instance of any of the given substrings in the string, or -1 if none are present.
+            </summary>
+            <param name="substrings">The substrings to search for.</param>
+            <param name="start">The position to start searching from, inclusive. 0 to search from the beginning.</param>
+            <param name="length">The number of runes to search from the start position.</param>
+            <returns>
+            The position of the start of the first match, as a number of runes from the beginning of the string, or -1 to indicate that none
+            of the substrings are present in the range.
+            </returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.IndexOfAny(Tsonto.System.Text.RuneString[],System.Int32)">
+            <summary>
+            Finds the position of the first instance of any of the given substrings in the string, or -1 if none are present.
+            </summary>
+            <param name="substrings">The substrings to search for.</param>
+            <param name="start">The position to start searching from, inclusive. 0 to search from the beginning.</param>
+            <returns>
+            The position of the start of the first match, as a number of runes from the beginning of the string, or -1 to indicate that none
+            of the substrings are present in the range.
+            </returns>
+        </member>
+        <member name="M:Tsonto.System.Text.RuneString.IndexOfAny(Tsonto.System.Text.RuneString[])">
+            <summary>
+            Finds the position of the first instance of any of the given substrings in the string, or -1 if none are present.
+            </summary>
+            <param name="substrings">The substrings to search for.</param>
+            <returns>
+            The position of the start of the first match, as a number of runes from the beginning of the string, or -1 to indicate that none
+            of the substrings are present in the range.
+            </returns>
+        </member>
         <member name="M:Tsonto.System.Text.RuneString.Split(System.Text.Rune@)">
             <summary>
             Returns a <see cref="T:Tsonto.System.Text.RuneString"/> array that contains the substrings in this instance that are delimited by

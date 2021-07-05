@@ -90,5 +90,32 @@ namespace Tsonto.System.Text.Test
             var actual = RuneString.Join(delimiter, new[] { a, b, c });
             actual.ToString().Should().Be("abcxyxyde");
         }
+
+        [Fact]
+        public void IndexOf_Substring()
+        {
+            var a = new RuneString("fbcdedef");
+            var b = new RuneString("def");
+            var actual = a.IndexOf(b);
+            actual.Should().Be(5);
+        }
+
+        [Fact]
+        public void IndexOfAny_Rune()
+        {
+            var a = new RuneString("fbcdedef");
+            var delims = new Rune[] { new('r') ,new('d'), new('c'), new('s') };
+            var actual = a.IndexOfAny(delims);
+            actual.Should().Be(2);
+        }
+
+        [Fact]
+        public void IndexOfAny_Substring()
+        {
+            var a = new RuneString("fbcdedef");
+            var delims = new RuneString[] { new("xy"), new("ef"), new("def"), new("yz") };
+            var actual = a.IndexOfAny(delims);
+            actual.Should().Be(5);
+        }
     }
 }
