@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="ImmutableArraySegment" Version="0.5.0" />
+	  <PackageReference Include="ImmutableArraySegment" Version="0.5.1" />
 	</ItemGroup>
 
     <ItemGroup>
